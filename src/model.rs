@@ -30,12 +30,19 @@ impl Item {
 
     pub fn to_string(&self) -> String {
         format!(
-            "{},{},{},{},{:?},{:?}",
-            self.id, self.name, self.completed, self.deleted, self.completed_at, self.deleted_at
+            "{},{},{},{},{:?}, {:?},{:?}",
+            self.id,
+            self.name,
+            self.completed,
+            self.deleted,
+            self.created_at,
+            self.completed_at,
+            self.deleted_at
         )
     }
 
     pub fn from_string(data: &str) -> Option<Self> {
+        println!("[from_string] data: {:?}", data);
         let fields: Vec<&str> = data.split(',').collect();
         if fields.len() != 7 {
             return None;
@@ -59,4 +66,3 @@ impl Item {
         })
     }
 }
-

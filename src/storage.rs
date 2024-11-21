@@ -46,17 +46,20 @@ impl Csv {
     }
 
     pub fn get_all(&self) -> io::Result<Vec<Item>> {
+        println!("Reading from file: {}", &self.filename);
         let file = fs::File::open(&self.filename)?;
         let reader = BufReader::new(file);
         let mut items = Vec::new();
 
         for line in reader.lines() {
-            if let Ok(line) = line {
-                if let Some(item) = Item::from_string(&line) {
-                    items.push(item);
-                }
+            println!("Reading line: {:?}", line);
+            if let Some(item) = Item::from_string(&line?) {
+                // 从文件中读取的每一行都是一个Item
+                items.push(item);
             }
         }
+
+        println!("Number of items: {}", items.len());
         Ok(items)
     }
 
@@ -77,4 +80,3 @@ impl Csv {
         }
     }
 }
-
